@@ -1,6 +1,3 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import sha1 from 'js-sha1'
 import { fadeOut } from './fades'
 import './util'
 import './core'

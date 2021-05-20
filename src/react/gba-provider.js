@@ -6,7 +6,6 @@ import GbaContext from './gba-context'
 
 const GbaProvider = ({ children }) => {
   const [gba, setGba] = useState()
-  const [volume, setVolume] = useState(null)
   const [romBufferMemory, setRomBufferMemory] = useState()
   const [frozenAddresses, setFrozenAddresses] = useState({})
 
