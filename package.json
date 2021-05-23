@@ -2,13 +2,17 @@
   "name": "react-gbajs",
   "version": "0.0.1",
   "description": "GBA emulator and wrapper for React",
-  "main": "dist/react-gbajs.js",
+  "browser": "dist/react-gbajs.js",
   "scripts": {
     "start": "webpack --watch --mode development --config webpack.config.js",
     "build": "webpack --mode production --config webpack.config.js"
   },
   "author": "macabeus",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/macabeus/react-gbajs.git"
+  },
   "dependencies": {
     "@babel/polyfill": "7.7.0",
     "@babel/runtime": "7.7.2",
@@ -17,8 +21,7 @@
     "prop-types": "15.7.2"
   },
   "peerDependencies": {
-    "react": "*",
-    "react-dom": "*"
+    "react": "*"
   },
   "devDependencies": {
     "@babel/core": "7.7.2",

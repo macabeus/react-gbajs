@@ -1,0 +1,26 @@
+{
+  "name": "sample-react-gbajs",
+  "version": "0.0.1",
+  "description": "react-gbajs sample",
+  "browser": "dist/main.js",
+  "scripts": {
+    "start": "webpack-dev-server --mode development --open --config ./webpack.config.js"
+  },
+  "author": "macabeus",
+  "license": "MIT",
+  "dependencies": {
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-gbajs": ".."
+  },
+  "devDependencies": {
+    "@types/react": "17.0.6",
+    "@types/react-dom": "17.0.5",
+    "ts-loader": "9.2.2",
+    "html-webpack-plugin": "5.3.1",
+    "typescript": "4.2.4",
+    "webpack": "5.37.1",
+    "webpack-cli": "4.7.0",
+    "webpack-dev-server": "3.11.2"
+  }
+}

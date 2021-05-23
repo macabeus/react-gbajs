@@ -1,6 +1,5 @@
 import React, { useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
-import reset from '../emulator/reset'
 import emulatorSetVolume from '../emulator/setVolume'
 import GbaContext from './gba-context'
 
