@@ -72,6 +72,8 @@ This package is a React wrapper for [GBA.js](https://github.com/endrift/gbajs).
 
 ## Features
 
+### `GbaContext`
+
 `GbaContext` exports the following properties:
 
 #### `play(newRomBufferMemory)`
@@ -103,6 +105,18 @@ Return the list of the addresses frozen in the following format:
   [address in number]: { size: 8 | 16 | 32, value: number }
 }
 ```
+
+### `<ReactGbaJs />`
+
+`<ReactGbaJs />` has the following props:
+
+#### `volume={number}`
+
+Should be a number between `0` (muted) or `1` (max volume).
+
+#### `onFpsReported={((fps: number) => void) | undefined}`
+
+This callback is called every time that an FPS is reported.
 
 # Contribution
 

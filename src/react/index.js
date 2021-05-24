@@ -3,8 +3,12 @@ import PropTypes from 'prop-types'
 import emulatorSetVolume from '../emulator/setVolume'
 import GbaContext from './gba-context'
 
-const ReactGbaJs = ({ volume }) => {
-  const { gba } = useContext(GbaContext)
+const ReactGbaJs = ({ onFpsReported, volume }) => {
+  const { gba, setFpsCallback } = useContext(GbaContext)
+
+  useEffect(() => {
+    setFpsCallback(onFpsReported)
+  }, [onFpsReported, setFpsCallback])
 
   useEffect(() => {
     if (gba === undefined) {
@@ -20,6 +24,7 @@ const ReactGbaJs = ({ volume }) => {
 }
 
 ReactGbaJs.propTypes = {
+  onFpsReported: PropTypes.func,
   volume: PropTypes.number.isRequired,
 }
 
