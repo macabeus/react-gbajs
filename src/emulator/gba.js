@@ -81,6 +81,10 @@ GameBoyAdvance.prototype.removeFreezeAddress = function(address) {
 	delete this.frozenAddresses[address];
 };
 
+GameBoyAdvance.prototype.requestFrame = function(callback) {
+	this.requestFrameTimeoutId = setTimeout(callback, 16);
+};
+
 GameBoyAdvance.prototype.setCanvas = function(canvas) {
 	var self = this;
 	if (canvas.offsetWidth != 240 || canvas.offsetHeight != 160) {
@@ -132,9 +136,9 @@ GameBoyAdvance.prototype.loadRomFromFile = function(romBuffer, callback) {
 }
 
 GameBoyAdvance.prototype.reset = function() {
-	if (this.rafId) {
-		window.cancelAnimationFrame(this.rafId);
-		delete this.rafId;
+	if (this.requestFrameTimeoutId) {
+		window.clearTimeout(this.requestFrameTimeoutId);
+		delete this.requestFrameTimeoutId;
 	}
 
 	this.audio.pause(true);
@@ -219,7 +223,7 @@ GameBoyAdvance.prototype.runStable = function() {
 				if (self.paused) {
 					return;
 				} else {
-					self.rafId = requestAnimationFrame(runFunc);
+					self.requestFrame(runFunc);
 				}
 				start = Date.now();
 				self.advanceFrame();
@@ -243,7 +247,7 @@ GameBoyAdvance.prototype.runStable = function() {
 				if (self.paused) {
 					return;
 				} else {
-					self.rafId = requestAnimationFrame(runFunc);
+					self.requestFrame(runFunc);
 				}
 				self.advanceFrame();
 			} catch(exception) {
@@ -255,7 +259,7 @@ GameBoyAdvance.prototype.runStable = function() {
 			}
 		};
 	}
-	self.rafId = requestAnimationFrame(runFunc);
+	self.requestFrame(runFunc);
 };
 
 GameBoyAdvance.prototype.setSavedata = function(data) {
