@@ -3,7 +3,10 @@ import PropTypes from 'prop-types'
 import emulatorSetVolume from '../emulator/setVolume'
 import GbaContext from './gba-context'
 
-const ReactGbaJs = ({ onFpsReported, volume }) => {
+const defaultWidth = 240
+const defaultHeight = 160
+
+const ReactGbaJs = ({ onFpsReported, scale = 1, volume }) => {
   const { gba, setFpsCallback } = useContext(GbaContext)
 
   useEffect(() => {
@@ -19,12 +22,28 @@ const ReactGbaJs = ({ onFpsReported, volume }) => {
   }, [gba, volume])
 
   return (
-    <canvas id="screen" width="480" height="320" />
+    <div
+      style={{
+        width: defaultWidth * scale,
+        height: defaultHeight * scale,
+      }}
+    >
+      <canvas
+        id="screen"
+        width={defaultWidth}
+        height={defaultHeight}
+        style={{
+          transform: `scale(${scale})`,
+          transformOrigin: 'left top',
+        }}
+      />
+    </div>
   )
 }
 
 ReactGbaJs.propTypes = {
   onFpsReported: PropTypes.func,
+  scale: PropTypes.number,
   volume: PropTypes.number.isRequired,
 }
 

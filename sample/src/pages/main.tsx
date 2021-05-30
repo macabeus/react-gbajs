@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import Emulator from "../components/emulator"
 import InputROM from '../components/input-rom'
+import InputScale from '../components/input-scale'
 import Instructions from '../components/instructions'
 import TogglePrintFps from '../components/toggle-print-fps'
 
 const Main = () => {
   const [printFps, setPrintFps] = useState(false)
+  const [scale, setScale] = useState(1)
 
   return (
     <div
@@ -16,7 +18,8 @@ const Main = () => {
       <InputROM />
       <Instructions />
       <TogglePrintFps printFps={printFps} setPrintFps={setPrintFps} />
-      <Emulator printFps={printFps} />
+      <InputScale scale={scale} setScale={setScale} />
+      <Emulator scale={scale} printFps={printFps} />
     </div>
   )
 }

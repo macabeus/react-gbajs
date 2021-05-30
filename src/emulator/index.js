@@ -155,19 +155,6 @@ const drawEmulator = (buffer) => {
     }
   }
 
-  document.addEventListener('webkitfullscreenchange', function() {
-    var canvas = document.getElementById('screen');
-    if (document.webkitIsFullScreen) {
-      canvas.setAttribute('height', document.body.offsetHeight);
-      canvas.setAttribute('width', document.body.offsetHeight / 2 * 3);
-      canvas.setAttribute('style', 'margin: 0');
-    } else {
-      canvas.setAttribute('height', 320);
-      canvas.setAttribute('width', 480);
-      canvas.removeAttribute('style');
-    }
-  }, false);
-
   run(buffer)
 
   return gba
