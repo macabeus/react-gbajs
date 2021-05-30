@@ -6,6 +6,7 @@ import GbaContext from './gba-context'
 
 const GbaProvider = ({ children }) => {
   const [gba, setGba] = useState()
+  const [fpsCallback, setFpsCallback] = useState()
   const [romBufferMemory, setRomBufferMemory] = useState()
   const [frozenAddresses, setFrozenAddresses] = useState({})
 
@@ -13,6 +14,7 @@ const GbaProvider = ({ children }) => {
     setRomBufferMemory(new Uint8Array([...newRomBufferMemory]))
 
     const newGbaInstance = drawEmulator(newRomBufferMemory)
+    newGbaInstance.reportFPS = fpsCallback
     setGba(newGbaInstance)
   }
 
@@ -42,6 +44,13 @@ const GbaProvider = ({ children }) => {
   return (
     <GbaContext.Provider value={{
       gba,
+      setFpsCallback: (newFpsCallback) => {
+        setFpsCallback(newFpsCallback)
+
+        if (gba) {
+          gba.reportFPS = newFpsCallback
+        }
+      },
       play,
       saveState,
       updateState,

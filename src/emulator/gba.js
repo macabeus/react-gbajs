@@ -211,55 +211,62 @@ GameBoyAdvance.prototype.runStable = function() {
 	var self = this;
 	var timer = 0;
 	var frames = 0;
-	var runFunc;
 	var start = Date.now();
 	this.paused = false;
 	this.audio.pause(false);
 
-	if (this.reportFPS) {
-		runFunc = function() {
-			try {
-				timer += Date.now() - start;
-				if (self.paused) {
-					return;
-				} else {
-					self.requestFrame(runFunc);
-				}
-				start = Date.now();
-				self.advanceFrame();
-				++frames;
-				if (frames == 60) {
-					self.reportFPS((frames * 1000) / timer);
-					frames = 0;
-					timer = 0;
-				}
-			} catch(exception) {
-				self.ERROR(exception);
-				if (exception.stack) {
-					self.logStackTrace(exception.stack.split('\n'));
-				}
-				throw exception;
-			}
-		};
-	} else {
-		runFunc = function() {
-			try {
-				if (self.paused) {
-					return;
-				} else {
-					self.requestFrame(runFunc);
-				}
-				self.advanceFrame();
-			} catch(exception) {
-				self.ERROR(exception);
-				if (exception.stack) {
-					self.logStackTrace(exception.stack.split('\n'));
-				}
-				throw exception;
-			}
-		};
+	function callRunFnc() {
+		if (self.reportFPS) {
+			runFuncWithFpsReport();
+			return;
+		}
+
+		runFuncSimple();
 	}
-	self.requestFrame(runFunc);
+
+	function runFuncSimple() {
+		try {
+			if (self.paused) {
+				return;
+			} else {
+				self.requestFrame(callRunFnc);
+			}
+			self.advanceFrame();
+		} catch(exception) {
+			self.ERROR(exception);
+			if (exception.stack) {
+				self.logStackTrace(exception.stack.split('\n'));
+			}
+			throw exception;
+		}
+	};
+
+	function runFuncWithFpsReport() {
+		try {
+			timer += Date.now() - start;
+			if (self.paused) {
+				return;
+			} else {
+				self.requestFrame(callRunFnc);
+			}
+			start = Date.now();
+			self.advanceFrame();
+			++frames;
+			if (frames == 60) {
+				self.reportFPS((frames * 1000) / timer);
+				frames = 0;
+				timer = 0;
+			}
+		} catch(exception) {
+			self.ERROR(exception);
+			if (exception.stack) {
+				self.logStackTrace(exception.stack.split('\n'));
+			}
+			throw exception;
+		}
+	};
+
+	self.requestFrame(callRunFnc);
 };
 
 GameBoyAdvance.prototype.setSavedata = function(data) {
