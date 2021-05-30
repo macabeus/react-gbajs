@@ -7,7 +7,7 @@ const defaultWidth = 240
 const defaultHeight = 160
 
 const ReactGbaJs = ({ onFpsReported, scale = 1, volume }) => {
-  const { gba, setFpsCallback } = useContext(GbaContext)
+  const { gba, setFpsCallback, canvasRef } = useContext(GbaContext)
 
   useEffect(() => {
     setFpsCallback(onFpsReported)
@@ -29,7 +29,7 @@ const ReactGbaJs = ({ onFpsReported, scale = 1, volume }) => {
       }}
     >
       <canvas
-        id="screen"
+        ref={canvasRef}
         width={defaultWidth}
         height={defaultHeight}
         style={{

@@ -17,7 +17,7 @@ import './gpio'
 import './gba'
 import biosBin from '../../assets/bios.bin'
 
-const drawEmulator = (buffer) => {
+const drawEmulator = (buffer, canvas) => {
   var gba
   var runCommands = []
   var debug = null
@@ -44,7 +44,6 @@ const drawEmulator = (buffer) => {
     gba = null;
   }
 
-  var canvas = document.getElementById('screen');
   gba.setCanvas(canvas);
 
   gba.logLevel = gba.LOG_ERROR;
