@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 import cloneDeep from 'lodash.clonedeep'
 import drawEmulator from '../emulator'
@@ -6,6 +6,7 @@ import GbaContext from './gba-context'
 
 const GbaProvider = ({ children }) => {
   const [gba, setGba] = useState()
+  const canvasRef = useRef()
   const [fpsCallback, setFpsCallback] = useState()
   const [romBufferMemory, setRomBufferMemory] = useState()
   const [frozenAddresses, setFrozenAddresses] = useState({})
@@ -13,7 +14,7 @@ const GbaProvider = ({ children }) => {
   const play = (newRomBufferMemory) => {
     setRomBufferMemory(new Uint8Array([...newRomBufferMemory]))
 
-    const newGbaInstance = drawEmulator(newRomBufferMemory)
+    const newGbaInstance = drawEmulator(newRomBufferMemory, canvasRef.current)
     newGbaInstance.reportFPS = fpsCallback
     setGba(newGbaInstance)
   }
@@ -44,6 +45,7 @@ const GbaProvider = ({ children }) => {
   return (
     <GbaContext.Provider value={{
       gba,
+      canvasRef,
       setFpsCallback: (newFpsCallback) => {
         setFpsCallback(newFpsCallback)
 

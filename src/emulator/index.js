@@ -17,7 +17,7 @@ import './gpio'
 import './gba'
 import biosBin from '../../assets/bios.bin'
 
-const drawEmulator = (buffer) => {
+const drawEmulator = (buffer, canvas) => {
   var gba
   var runCommands = []
   var debug = null
@@ -44,7 +44,6 @@ const drawEmulator = (buffer) => {
     gba = null;
   }
 
-  var canvas = document.getElementById('screen');
   gba.setCanvas(canvas);
 
   gba.logLevel = gba.LOG_ERROR;
@@ -154,19 +153,6 @@ const drawEmulator = (buffer) => {
       debug.postMessage('connect', document.domain || '*');
     }
   }
-
-  document.addEventListener('webkitfullscreenchange', function() {
-    var canvas = document.getElementById('screen');
-    if (document.webkitIsFullScreen) {
-      canvas.setAttribute('height', document.body.offsetHeight);
-      canvas.setAttribute('width', document.body.offsetHeight / 2 * 3);
-      canvas.setAttribute('style', 'margin: 0');
-    } else {
-      canvas.setAttribute('height', 320);
-      canvas.setAttribute('width', 480);
-      canvas.removeAttribute('style');
-    }
-  }, false);
 
   run(buffer)
 

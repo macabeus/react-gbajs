@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react'
 import GBAEmulator from 'react-gbajs'
 
-type Props = { printFps: boolean }
-const Emulator: FunctionComponent<Props> = ({ printFps }) => {
+type Props = { scale: number, printFps: boolean }
+const Emulator: FunctionComponent<Props> = ({ scale, printFps }) => {
   const fpsReportCallback = (
     printFps
       ? (fps: number) => console.log('FPS', fps)
@@ -12,6 +12,7 @@ const Emulator: FunctionComponent<Props> = ({ printFps }) => {
   return (
     <GBAEmulator
       onFpsReported={fpsReportCallback}
+      scale={scale}
       volume={0}
     />
   )

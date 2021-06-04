@@ -118,6 +118,10 @@ Should be a number between `0` (muted) or `1` (max volume).
 
 This callback is called every time that an FPS is reported.
 
+### `scale={number | undefined}`
+
+Set the emulator scale. Default value is `1`, which has width 240px and height 160px.
+
 # Contribution
 
 1 - Clone this repository
