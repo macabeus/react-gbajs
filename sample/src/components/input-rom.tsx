@@ -31,8 +31,8 @@ const InputROM = () => {
 
   const onChangeHandle = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const [file] = event.target.files
-    const result = await getFileContent(file)
-    playGba(result)
+    const fileContent = await getFileContent(file)
+    playGba({ newRomBuffer: fileContent })
   }
 
   return (
