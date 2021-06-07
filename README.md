@@ -76,17 +76,31 @@ This package is a React wrapper for [GBA.js](https://github.com/endrift/gbajs).
 
 `GbaContext` exports the following properties:
 
-#### `play(newRomBufferMemory)`
+#### `play({ newRomBuffer, restoreState }): boolean`
 
-Use this method to play the emulator, passing as its argument the game's ROM. Every time this function is called, it creates a new `GameBoyAdvance` instance, so all game progress is lost.
+Use this function to start or restart the emulator.
+
+Pass at `newRomBuffer` the game's ROM to load it:
+
+```js
+play({ newRomBuffer: myGameRom })
+```
+
+You can also fill the property `restoreState` to restore to a previous state saved using `saveState`. If both are present, the emulator will be reset loading the ROM, and then restored to the given state:
+
+```js
+play({ newRomBuffer: myGameRom, restoreState: someState })
+```
+
+If you pass only `restoreState`, the previous ROM will be re-loaded and will start on the given state. If there is no ROM previously loaded, it won't work.
+
+```js
+play({ restoreState: someState })
+```
 
 #### `saveState()`
 
 Return the serializable state of the emulator.
-
-#### `updateState({ restoreState, newRomBuffer })`
-
-Use this function passing `restoreState` to restore to a previous state saved using `saveState`. You can also pass `newRomBuffer` to reset the emulator and then load a new ROM. If both are passed, the emulator will be reset with the new ROM and then restored to the given state.
 
 #### `addFreezeAddress({ address: number, size: 8 | 16 | 32, value: number })`
 
@@ -118,7 +132,7 @@ Should be a number between `0` (muted) or `1` (max volume).
 
 This callback is called every time that an FPS is reported.
 
-### `scale={number | undefined}`
+#### `scale={number | undefined}`
 
 Set the emulator scale. Default value is `1`, which has width 240px and height 160px.
 

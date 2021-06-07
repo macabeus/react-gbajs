@@ -11,36 +11,47 @@ const GbaProvider = ({ children }) => {
   const [romBufferMemory, setRomBufferMemory] = useState()
   const [frozenAddresses, setFrozenAddresses] = useState({})
 
-  const play = (newRomBufferMemory) => {
-    setRomBufferMemory(new Uint8Array([...newRomBufferMemory]))
+  const play = ({ newRomBuffer, restoreState }) => {
+    if (
+      newRomBuffer === undefined &&
+      romBufferMemory === undefined
+    ) {
+      console.error('Error: There is no ROM buffer to can play the emulator')
+      return false
+    }
 
-    const newGbaInstance = drawEmulator(newRomBufferMemory, canvasRef.current)
-    newGbaInstance.reportFPS = fpsCallback
-    setGba(newGbaInstance)
-  }
+    const gbaInstance = (
+      gba === undefined
+        ? drawEmulator(newRomBuffer, canvasRef.current)
+        : gba
+    )
 
-  const saveState = () =>
-    gba.freeze()
+    gbaInstance.reportFPS = fpsCallback
+    setGba(gbaInstance)
 
-  const updateState = ({ restoreState, newRomBuffer }) => {
     if (newRomBuffer !== undefined) {
       const newRomBufferReference = new Uint8Array([...newRomBuffer])
 
       setRomBufferMemory(newRomBufferReference)
-      gba.setRom(newRomBufferReference.buffer)
+      gbaInstance.setRom(newRomBufferReference.buffer)
     } else {
-      gba.setRom(romBufferMemory.buffer)
+      gbaInstance.setRom(romBufferMemory.buffer)
     }
 
     if (restoreState !== undefined) {
-      gba.defrost(cloneDeep(restoreState))
+      gbaInstance.defrost(cloneDeep(restoreState))
     }
 
-    gba.runStable()
+    gbaInstance.runStable()
+
+    return true
   }
 
   const updateFrozenAddreses = () =>
     setFrozenAddresses(cloneDeep(gba.frozenAddresses))
+
+  const saveState = () =>
+    gba.freeze()
 
   return (
     <GbaContext.Provider value={{
@@ -55,7 +66,6 @@ const GbaProvider = ({ children }) => {
       },
       play,
       saveState,
-      updateState,
       frozenAddresses,
       addFreezeAddress: gba && ((args) => {
         gba.addFreezeAddress(args)
