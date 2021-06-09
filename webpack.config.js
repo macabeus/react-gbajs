@@ -3,7 +3,7 @@ const path = require('path')
 const rules = [
   {
     exclude: /node_modules/,
-    test: /\.js$/,
+    test: /\.j|tsx?$/,
     use: {
       loader: 'babel-loader',
     },
@@ -12,11 +12,16 @@ const rules = [
     loader: require.resolve('arraybuffer-loader'),
     test: /\.bin$/,
   },
+  {
+    test: /\.tsx?$/,
+    use: 'ts-loader',
+    exclude: /node_modules/,
+  },
 ]
 
 module.exports = {
   devtool: 'source-map',
-  entry: './src/index.js',
+  entry: './src/index.ts',
   module: {
     rules,
   },
@@ -25,6 +30,9 @@ module.exports = {
     libraryTarget: 'commonjs2',
     path: path.join(__dirname, './dist'),
     sourceMapFilename: 'react-gbajs.js.map',
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js']
   },
   externals: {
     react: 'react',

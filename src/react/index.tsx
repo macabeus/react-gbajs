@@ -1,12 +1,16 @@
-import React, { useEffect, useContext } from 'react'
-import PropTypes from 'prop-types'
+import React, { FunctionComponent, useEffect, useContext } from 'react'
 import emulatorSetVolume from '../emulator/setVolume'
 import GbaContext from './gba-context'
 
 const defaultWidth = 240
 const defaultHeight = 160
 
-const ReactGbaJs = ({ onFpsReported, scale = 1, volume }) => {
+type Props = ({
+  onFpsReported: FpsCallback,
+  scale: number,
+  volume: number,
+})
+const ReactGbaJs: FunctionComponent<Props> = ({ onFpsReported, scale = 1, volume }) => {
   const { gba, setFpsCallback, canvasRef } = useContext(GbaContext)
 
   useEffect(() => {
@@ -39,12 +43,6 @@ const ReactGbaJs = ({ onFpsReported, scale = 1, volume }) => {
       />
     </div>
   )
-}
-
-ReactGbaJs.propTypes = {
-  onFpsReported: PropTypes.func,
-  scale: PropTypes.number,
-  volume: PropTypes.number.isRequired,
 }
 
 export default ReactGbaJs
