@@ -1,4 +1,4 @@
-# react-gbajs
+# <img src="/assets/logo.png" height="75px" /> 
 
 > GBA emulator on your React project - easy and powerful to use!
 
@@ -159,3 +159,8 @@ Set the emulator scale. Default value is `1`, which has width 240px and height 1
 ```
 
 Finished! Now you can develop the package and test it in real-time 🎉
+
+# Thanks
+
+[@endrift](https://twitter.com/endrift) for GBA.js.<br />
+[@felixrodent](https://twitter.com/felixrodent) for the logo.
