@@ -14,6 +14,8 @@ const Emulator: FunctionComponent<Props> = ({ scale, printFps }) => {
       onFpsReported={fpsReportCallback}
       scale={scale}
       volume={0}
+      watchLogLevels={{ error: true, warn: true }}
+      onLogReceived={(level, message) => { console.log(`Received a log level ${level} with the message "${message}"`) }}
     />
   )
 }

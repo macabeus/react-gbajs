@@ -1,13 +1,7 @@
+import { LogLevel }  from './logs';
+
 function GameBoyAdvance() {
-	this.LOG_ERROR = 1;
-	this.LOG_WARN = 2;
-	this.LOG_STUB = 4;
-	this.LOG_INFO = 8;
-	this.LOG_DEBUG = 16;
-
 	this.SYS_ID = 'com.endrift.gbajs';
-
-	this.logLevel = this.LOG_ERROR | this.LOG_WARN;
 
 	this.rom = null;
 
@@ -380,7 +374,6 @@ GameBoyAdvance.prototype.setLogger = function(logger) {
 
 GameBoyAdvance.prototype.logStackTrace = function(stack) {
 	var overflow = stack.length - 32;
-	this.ERROR('Stack trace follows:');
 	if (overflow > 0) {
 		this.log(-1, '> (Too many frames)');
 	}
@@ -390,33 +383,19 @@ GameBoyAdvance.prototype.logStackTrace = function(stack) {
 };
 
 GameBoyAdvance.prototype.ERROR = function(error) {
-	if (this.logLevel & this.LOG_ERROR) {
-		this.log(this.LOG_ERROR, error);
-	}
+	this.log(LogLevel.error, error);
 };
 
 GameBoyAdvance.prototype.WARN = function(warn) {
-	if (this.logLevel & this.LOG_WARN) {
-		this.log(this.LOG_WARN, warn);
-	}
+	this.log(LogLevel.warn, warn);
 };
 
 GameBoyAdvance.prototype.STUB = function(func) {
-	if (this.logLevel & this.LOG_STUB) {
-		this.log(this.LOG_STUB, func);
-	}
+	this.log(LogLevel.stub, func);
 };
 
 GameBoyAdvance.prototype.INFO = function(info) {
-	if (this.logLevel & this.LOG_INFO) {
-		this.log(this.LOG_INFO, info);
-	}
-};
-
-GameBoyAdvance.prototype.DEBUG = function(info) {
-	if (this.logLevel & this.LOG_DEBUG) {
-		this.log(this.LOG_DEBUG, info);
-	}
+	this.log(LogLevel.info, info);
 };
 
 GameBoyAdvance.prototype.ASSERT_UNREACHED = function(err) {
