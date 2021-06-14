@@ -1,0 +1,18 @@
+{
+  "exclude": ["./sample", "./dist"],
+  "compilerOptions": {
+    "outDir": "./dist",
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false,
+    "moduleResolution": "node",
+    "module": "es6",
+    "target": "es6",
+    "strictNullChecks": true,
+    "rootDir": "./src",
+    "esModuleInterop": true,
+    "allowJs": false,
+    "jsx": "react",
+    "declaration": true,
+    "lib": ["dom", "es2019"]
+  }
+}

@@ -1,17 +1,16 @@
-import React, { useState, useRef } from 'react'
-import PropTypes from 'prop-types'
+import React, { FunctionComponent, useState, useRef } from 'react'
 import cloneDeep from 'lodash.clonedeep'
 import drawEmulator from '../emulator'
 import GbaContext from './gba-context'
 
-const GbaProvider = ({ children }) => {
-  const [gba, setGba] = useState()
-  const canvasRef = useRef()
-  const [fpsCallback, setFpsCallback] = useState()
-  const [romBufferMemory, setRomBufferMemory] = useState()
+const GbaProvider: FunctionComponent = ({ children }) => {
+  const [gba, setGba] = useState<Gba>()
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const [fpsCallback, setFpsCallback] = useState<FpsCallback>()
+  const [romBufferMemory, setRomBufferMemory] = useState<Uint8Array>()
   const [frozenAddresses, setFrozenAddresses] = useState({})
 
-  const play = ({ newRomBuffer, restoreState }) => {
+  const play: Play = ({ newRomBuffer, restoreState }) => {
     if (
       newRomBuffer === undefined &&
       romBufferMemory === undefined
@@ -35,7 +34,7 @@ const GbaProvider = ({ children }) => {
       setRomBufferMemory(newRomBufferReference)
       gbaInstance.setRom(newRomBufferReference.buffer)
     } else {
-      gbaInstance.setRom(romBufferMemory.buffer)
+      gbaInstance.setRom(romBufferMemory!.buffer)
     }
 
     if (restoreState !== undefined) {
@@ -48,7 +47,7 @@ const GbaProvider = ({ children }) => {
   }
 
   const updateFrozenAddreses = () =>
-    setFrozenAddresses(cloneDeep(gba.frozenAddresses))
+    setFrozenAddresses(cloneDeep(gba!.frozenAddresses))
 
   const saveState = () =>
     gba.freeze()
@@ -80,10 +79,6 @@ const GbaProvider = ({ children }) => {
       {children}
     </GbaContext.Provider>
   )
-}
-
-GbaProvider.propTypes = {
-  children: PropTypes.node.isRequired,
 }
 
 export default GbaProvider
