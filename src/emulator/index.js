@@ -16,6 +16,7 @@ import './savedata'
 import './gpio'
 import './gba'
 import biosBin from '../../assets/bios.bin'
+import { makeLogger } from './logs'
 
 const drawEmulator = (buffer, canvas) => {
   var gba
@@ -26,27 +27,14 @@ const drawEmulator = (buffer, canvas) => {
     gba = new GameBoyAdvance();
     gba.keypad.eatInput = true;
 
-    gba.setLogger(function(level, error) {
-      console.log(error);
-      gba.pause();
-      var screen = document.getElementById('screen');
-      if (screen.getAttribute('class') == 'dead') {
-        console.log('We appear to have crashed multiple times without reseting.');
-        return;
-      }
-      var crash = document.createElement('img');
-      crash.setAttribute('id', 'crash');
-      crash.setAttribute('src', '../../assets/crash.png');
-      screen.parentElement.insertBefore(crash, screen);
-      screen.setAttribute('class', 'dead');
-    });
+    gba.setLogger(
+      makeLogger(gba, { error: true }, () => {})
+    );
   } catch (exception) {
     gba = null;
   }
 
   gba.setCanvas(canvas);
-
-  gba.logLevel = gba.LOG_ERROR;
 
   gba.setBios(biosBin);
 

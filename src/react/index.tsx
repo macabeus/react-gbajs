@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useEffect, useContext } from 'react'
 import emulatorSetVolume from '../emulator/setVolume'
 import GbaContext from './gba-context'
+import { LogLevel, WatchLogLevels, makeLogger } from '../emulator/logs'
 
 const defaultWidth = 240
 const defaultHeight = 160
@@ -9,13 +10,27 @@ type Props = ({
   onFpsReported: FpsCallback,
   scale: number,
   volume: number,
+  watchLogLevels?: WatchLogLevels,
+  onLogReceived?: (level: LogLevel, message: string) => void,
 })
-const ReactGbaJs: FunctionComponent<Props> = ({ onFpsReported, scale = 1, volume }) => {
+const ReactGbaJs: FunctionComponent<Props> = ({
+  onFpsReported,
+  volume,
+  watchLogLevels = { error: true },
+  onLogReceived = () => {},
+  scale = 1,
+}) => {
   const { gba, setFpsCallback, canvasRef } = useContext(GbaContext)
 
   useEffect(() => {
     setFpsCallback(onFpsReported)
   }, [onFpsReported, setFpsCallback])
+
+  useEffect(() => {
+    gba?.setLogger(
+      makeLogger(gba, watchLogLevels, onLogReceived)
+    )
+  }, [gba, JSON.stringify(watchLogLevels), onLogReceived])
 
   useEffect(() => {
     if (gba === undefined) {

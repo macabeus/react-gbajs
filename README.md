@@ -128,13 +128,21 @@ Return the list of the addresses frozen in the following format:
 
 Should be a number between `0` (muted) or `1` (max volume).
 
-#### `onFpsReported={((fps: number) => void) | undefined}`
+#### `onFpsReported={((fps: number) => void)}` (optional)
 
-This callback is called every time that an FPS is reported.
+Callback called every time that an FPS is reported.
 
 #### `scale={number | undefined}`
 
 Set the emulator scale. Default value is `1`, which has width 240px and height 160px.
+
+#### `onLogReceived={(level: 'error' | 'warn' | 'stub' | 'info', message: string) => void}` (optional)
+
+Callback called every time that a log is received within the levels set as `true` by the prop `watchLogLevels`.
+
+#### `watchLogLevels={{ error?: boolean, warn?: boolean, stub?: boolean, info?: boolean }}` (optional)
+
+Set when the callback `onLogReceived` should be called. By default the value is `{ error: true }`.
 
 # Contribution
 
