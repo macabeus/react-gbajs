@@ -25,9 +25,9 @@ const Component = () => {
     play,
   } = useContext(GbaContext)
 
-  const onSomeHandle = () => {
+  const startEmulator = () => {
     const gameRom = getGameRom()
-    play(gameRom)
+    play({ newRomBuffer: gameRom })
   }
 
   return (
@@ -38,14 +38,15 @@ const Component = () => {
 
 3 - And render the emulator using the default export
 
-```js
+```jsx
 import ReactGbaJs from 'react-gbajs'
 
 const Emulator = () => (
-  <ReactGbaJs volume={0} />
+  <ReactGbaJs />
 )
 ```
 
+Done! 🎉 <br />
 Check a full example in [`/sample`](sample).
 
 ## How it works
@@ -124,15 +125,15 @@ Return the list of the addresses frozen in the following format:
 
 `<ReactGbaJs />` has the following props:
 
-#### `volume={number}`
+#### `volume={number}` (optional)
 
-Should be a number between `0` (muted) or `1` (max volume).
+Should be a number between `0` (default, muted) or `1` (max volume).
 
 #### `onFpsReported={((fps: number) => void)}` (optional)
 
 Callback called every time that an FPS is reported.
 
-#### `scale={number | undefined}`
+#### `scale={number}` (optional)
 
 Set the emulator scale. Default value is `1`, which has width 240px and height 160px.
 
