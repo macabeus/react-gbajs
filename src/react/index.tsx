@@ -7,15 +7,15 @@ const defaultWidth = 240
 const defaultHeight = 160
 
 type Props = ({
-  onFpsReported: FpsCallback,
-  scale: number,
-  volume: number,
+  onFpsReported?: FpsCallback,
+  scale?: number,
+  volume?: number,
   watchLogLevels?: WatchLogLevels,
   onLogReceived?: (level: LogLevel, message: string) => void,
 })
 const ReactGbaJs: FunctionComponent<Props> = ({
   onFpsReported,
-  volume,
+  volume = 0,
   watchLogLevels = { error: true },
   onLogReceived = () => {},
   scale = 1,
