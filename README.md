@@ -172,4 +172,4 @@ Finished! Now you can develop the package and test it in real-time 🎉
 # Thanks
 
 [@endrift](https://twitter.com/endrift) for GBA.js.<br />
-[@felixrodent](https://twitter.com/felixrodent) for the logo.
+[@felix.rodent](https://twitter.com/felixrodent) for the logo.
