@@ -20,7 +20,7 @@ const App = () => (
 import { useContext } from 'react'
 import { GbaContext } from 'react-gbajs'
 
-const Component = () => {
+const ButtonStartEmulator = () => {
   const {
     play,
   } = useContext(GbaContext)
@@ -31,7 +31,9 @@ const Component = () => {
   }
 
   return (
-    <SomeComponent startGame={onSomeHandle}>
+    <button onClick={() => startEmulator()}>
+      Start Emulator
+    </button>
   )
 }
 ```
