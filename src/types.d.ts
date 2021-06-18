@@ -1,6 +1,8 @@
 type Gba = any
 type State = any
 
+type ClearGbaInstance = () => void
+
 type FpsCallback = (fps: number) => void
 
 type FrozenAddress = { size: 8 | 16 | 32, value: number }

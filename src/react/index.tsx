@@ -20,7 +20,12 @@ const ReactGbaJs: FunctionComponent<Props> = ({
   onLogReceived = () => {},
   scale = 1,
 }) => {
-  const { gba, setFpsCallback, canvasRef } = useContext(GbaContext)
+  const {
+    gba,
+    clearGbaInstance,
+    setFpsCallback,
+    canvasRef,
+  } = useContext(GbaContext)
 
   useEffect(() => {
     setFpsCallback(onFpsReported)
@@ -31,6 +36,10 @@ const ReactGbaJs: FunctionComponent<Props> = ({
       makeLogger(gba, watchLogLevels, onLogReceived)
     )
   }, [gba, JSON.stringify(watchLogLevels), onLogReceived])
+
+  useEffect(() =>
+    () => clearGbaInstance()
+  )
 
   useEffect(() => {
     if (gba === undefined) {
