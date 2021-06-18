@@ -52,9 +52,13 @@ const GbaProvider: FunctionComponent = ({ children }) => {
   const saveState = () =>
     gba.freeze()
 
+  const clearGbaInstance = () =>
+    setGba(undefined)
+
   return (
     <GbaContext.Provider value={{
       gba,
+      clearGbaInstance,
       canvasRef,
       setFpsCallback: (newFpsCallback) => {
         setFpsCallback(newFpsCallback)
