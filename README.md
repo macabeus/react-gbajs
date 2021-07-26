@@ -156,16 +156,23 @@ Set when the callback `onLogReceived` should be called. By default the value is 
 > cd react-gbajs
 ```
 
-2 - Build and watch the project
+2 - Install its dependencies
+  
+```
+> npm i
+```
+
+3 - Build and watch the project
 
 ```
 > npm run start
 ```
 
-3 - In another terminal window, go to the [`/sample`](sample) project, then build and watch it
+4 - In another terminal window, go to the [`/sample`](sample) project, install its dependencies, and then build and watch it
 
 ```
 > cd sample
+> npm i
 > npm run start
 ```
 
