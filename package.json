@@ -1,7 +1,8 @@
 {
   "name": "react-gbajs",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "GBA emulator and wrapper for React",
+  "main": "dist/react-gbajs.js",
   "browser": "dist/react-gbajs.js",
   "types": "dist/index.d.ts",
   "scripts": {
