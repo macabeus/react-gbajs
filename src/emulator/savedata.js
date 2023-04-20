@@ -1,4 +1,5 @@
-import './mmu'
+import './mmu';
+import MemoryView from './mmu';
 
 function SRAMSavedata(size) {
 	MemoryView.call(this, new ArrayBuffer(size), 0);
@@ -23,7 +24,7 @@ SRAMSavedata.prototype.store32 = function(offset, value) {
 	this.writePending = true;
 };
 
-function FlashSavedata(size) {
+export default function FlashSavedata(size) {
 	MemoryView.call(this, new ArrayBuffer(size), 0);
 
 	this.COMMAND_WIPE = 0x10;
@@ -55,6 +56,8 @@ function FlashSavedata(size) {
 	this.command = 0;
 	this.pendingCommand = 0;
 };
+
+window.FlashSavedata = FlashSavedata;
 
 FlashSavedata.prototype = Object.create(MemoryView.prototype);
 

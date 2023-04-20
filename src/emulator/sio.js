@@ -1,3 +1,5 @@
+import { hex } from './util';
+
 window.GameBoyAdvanceSIO = function GameBoyAdvanceSIO() {
 	this.SIO_NORMAL_8 = 0;
 	this.SIO_NORMAL_32 = 1;
