@@ -1,11 +1,14 @@
 import cloneDeep from 'lodash.clonedeep';
+import FlashSavedata from './savedata';
 
-window.MemoryView = function MemoryView(memory, offset) {
+export default function MemoryView(memory, offset) {
 	this.buffer = memory;
 	this.view = new DataView(this.buffer, typeof(offset) === "number" ? offset : 0);
 	this.mask = memory.byteLength - 1;
 	this.resetMask();
 };
+
+window.MemoryView = MemoryView;
 
 MemoryView.prototype.resetMask = function() {
 	this.mask8 = this.mask & 0xFFFFFFFF;
