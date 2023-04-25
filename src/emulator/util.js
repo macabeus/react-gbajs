@@ -1,4 +1,4 @@
-export default function hex(number, leading, usePrefix) {
+export function hex(number, leading, usePrefix) {
 	if (typeof(usePrefix) === 'undefined') {
 		usePrefix = true;
 	}
