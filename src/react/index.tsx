@@ -35,12 +35,12 @@ const ReactGbaJs: FunctionComponent<Props> = ({
     gba?.setLogger(
       makeLogger(gba, watchLogLevels, onLogReceived)
     )
-  }, [gba, JSON.stringify(watchLogLevels), onLogReceived])
+  }, [gba, onLogReceived, watchLogLevels])
 
   useEffect(
     () =>
       () => clearGbaInstance(),
-    []
+    [clearGbaInstance]
   )
 
   useEffect(() => {
