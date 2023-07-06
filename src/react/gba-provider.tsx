@@ -3,7 +3,7 @@ import cloneDeep from 'lodash.clonedeep'
 import drawEmulator from '../emulator'
 import GbaContext from './gba-context'
 
-const GbaProvider: FunctionComponent = ({ children }) => {
+const GbaProvider: FunctionComponent<{children:ReactNode}> = ({ children }) => {
   const [gba, setGba] = useState<Gba>()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [fpsCallback, setFpsCallback] = useState<FpsCallback>()
