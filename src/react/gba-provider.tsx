@@ -1,9 +1,13 @@
-import React, { FunctionComponent, useState, useRef } from 'react'
+import React, { FunctionComponent, useState, useRef, ReactNode } from 'react'
 import cloneDeep from 'lodash.clonedeep'
 import drawEmulator from '../emulator'
 import GbaContext from './gba-context'
 
-const GbaProvider: FunctionComponent = ({ children }) => {
+type Props = {
+  children?: ReactNode
+};
+
+const GbaProvider: FunctionComponent<Props> = ({ children }) => {
   const [gba, setGba] = useState<Gba>()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [fpsCallback, setFpsCallback] = useState<FpsCallback>()
